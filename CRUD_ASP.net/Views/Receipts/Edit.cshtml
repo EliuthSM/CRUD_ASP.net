@@ -1,0 +1,129 @@
+﻿@model CRUD_ASP.net.ViewModels.ReceiptViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>Receipt</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Receipt.Id" />
+            <div class="form-group">
+                <label asp-for="@Model.Receipt.TypeReceipt" class="control-label"></label>
+                <input asp-for="@Model.Receipt.TypeReceipt" class="form-control" />
+                <span asp-validation-for="@Model.Receipt.TypeReceipt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Receipt.ReceiptNumber" class="control-label"></label>
+                <input asp-for="@Model.Receipt.ReceiptNumber" class="form-control" />
+                <span asp-validation-for="@Model.Receipt.ReceiptNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Receipt.Observations" class="control-label"></label>
+                <input asp-for="@Model.Receipt.Observations" class="form-control" />
+                <span asp-validation-for="@Model.Receipt.Observations" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Receipt.DateEmision" class="control-label"></label>
+                <input asp-for="@Model.Receipt.DateEmision" class="form-control" />
+                <span asp-validation-for="@Model.Receipt.DateEmision" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Receipt.AmountTotal" class="control-label"></label>
+                <input asp-for="@Model.Receipt.AmountTotal" class="form-control" />
+                <span asp-validation-for="@Model.Receipt.AmountTotal" class="text-danger"></span>
+            </div>
+
+            <div class="row mt-4 w-100">
+                <div class="col">
+                    <h4>Detalles</h4>
+                </div>
+                <div class="col float-end">
+
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary p-1 m-1" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <strong>+</strong>
+                    </button>
+                </div>
+            </div>
+            <table class="table mt-2">
+                <thead>
+                    <tr>
+                        <th>Nombre del Producto</th>
+                        <th>Monto</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody id="detailsBody">
+                    <!-- Aquí se agregarán dinámicamente los detalles -->
+                </tbody>
+                @* <tbody id="detailsBody"> *@
+                @*     <!-- Aquí se agregarán dinámicamente los detalles --> *@
+                @*     @foreach (var item in Model.ReceiptDetails) *@
+                @*     { *@
+                @*         <tr> *@
+                @*             <td>@item.Product_name</td> *@
+                @*             <td>@item.Amount</td> *@
+                @*             <td> *@
+                @*                 <button onclick="console.log('Eliminar')" class="btn btn-danger btn-sm btnDelete">Eliminar</button> *@
+                @*             </td> *@
+                @*         </tr> *@
+                @*     } *@
+                @* </tbody> *@
+            </table>
+
+            <div id="hiddenDetailsContainer"></div>
+
+
+
+            <input type="hidden" id="ReceiptDetailsJson" value='@Html.Raw(Json.Serialize(Model.ReceiptDetails))' />
+            <!-- Input oculto para enviar los detalles actualizados -->
+           
+            <div class="form-group">
+                <input type="submit" id="btnSubmit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group my-2">
+                    <input type="text" id="ProductName" class="form-control" placeholder="Nombre del Producto">
+                </div>
+                <div class="form-group my-2">
+                    <input type="number" id="Amount" class="form-control" placeholder="Monto">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" id="btnAddDetail" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/js/receipt.js"></script>
+}

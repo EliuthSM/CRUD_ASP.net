@@ -1,0 +1,37 @@
+﻿@model IEnumerable<dynamic>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayName("Tipo de Recibo")</th>
+            <th>@Html.DisplayName("Número")</th>
+            <th>@Html.DisplayName("Observaciones")</th>
+            <th>@Html.DisplayName("Fecha Emisión")</th>
+            <th>@Html.DisplayName("Monto Total")</th>
+            <th>@Html.DisplayName("Cantidad de Detalles")</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.TypeReceipt</td>
+                <td>@item.ReceiptNumber</td>
+                <td>@item.Observations</td>
+                <td>@item.DateEmision</td>
+                <td>@item.AmountTotal</td>
+                <td>@item.Counted</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
