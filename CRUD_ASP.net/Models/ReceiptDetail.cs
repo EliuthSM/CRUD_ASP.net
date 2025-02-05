@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
@@ -15,6 +16,7 @@ namespace CRUD_ASP.net.Models
         public string? Product_name { get; set; } // Se permite null
         [Required]
         [Display(Name = "MONTO")]
+        [Precision(18, 2)]  // Define la precisión
         [Column("amount")]
         public decimal Amount { get; set; }
         [Required]

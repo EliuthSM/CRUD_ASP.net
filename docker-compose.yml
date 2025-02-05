@@ -1,0 +1,35 @@
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver
+    restart: always
+    environment:
+      SA_PASSWORD:  "TuPassword123!"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    volumes:
+      - sql_data:/var/opt/mssql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - mynetwork
+  webapp:
+    build: .
+    container_name: aspnet_app
+    restart: always
+    ports:
+      - "5000:80"
+      - "5001:443"
+    depends_on:
+      - sqlserver
+    environment:
+      ASPNETCORE_URLS: "http://+:80"  # Forzar a la aplicación a escuchar en puerto 80
+      ConnectionStrings__DefaultConnection: "Server=sqlserver;Database=billing_system;User Id=sa;Password=TuPassword123!;TrustServerCertificate=True"
+    networks:
+      - mynetwork
+volumes:
+  sql_data:
+networks:
+  mynetwork:
+    driver: bridge

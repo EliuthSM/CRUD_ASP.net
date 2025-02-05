@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -28,6 +29,7 @@ namespace CRUD_ASP.net.Models
         public DateTime? DateEmision { get; set; }
         [Required]
         [Display(Name = "MONTO TOTAL")]
+        [Precision(18, 2)]  // Define la precisión
         [Column("amount_total")]
         public decimal AmountTotal { get; set; }
 
